@@ -20,5 +20,6 @@ setup(
     requires = [
         'django',
         'requests (>=2.0)',
+        'pathlib2',
     ],
 )
