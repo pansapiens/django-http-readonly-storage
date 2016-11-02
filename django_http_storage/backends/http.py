@@ -160,9 +160,7 @@ class HTTPReadOnlyStorageFile(File):
 
     @property
     def file(self):
-        if not self._response:
-            self._open()
-        return self._response.raw
+        return self
 
     @property
     def size(self):
