@@ -61,6 +61,9 @@ class HTTPReadOnlyStorage(StorageBase):
         return response
 
     def get_download_url(self, name):
+        parsed = urlparse(name)
+        if parsed.scheme:
+            return name
         return urljoin(self.url_base, name)
 
     def _open(self, name, mode='rb'):
@@ -154,6 +157,12 @@ class HTTPReadOnlyStorageFile(File):
             self._chunk_size = self.DEFAULT_CHUNK_SIZE
 
         self._open()
+
+    @property
+    def file(self):
+        if not self._response:
+            self._open()
+        self.file = self._response.raw
 
     @property
     def size(self):
